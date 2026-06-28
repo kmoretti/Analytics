@@ -78,8 +78,10 @@ const state = ref<State>({
 
 function dispatch(action: Action) {
   switch (action.type) {
-    case actionTypes.ADD_TOAST:
-      state.value.toasts = [action.toast].concat(state.value.toasts).slice(0, TOAST_LIMIT)
+    case actionTypes.ADD_TOAST: {
+      const newToasts: ToasterToast[] = [action.toast, ...state.value.toasts].slice(0, TOAST_LIMIT)
+      state.value.toasts = newToasts
+    }
       break
 
     case actionTypes.UPDATE_TOAST:
